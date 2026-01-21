@@ -4,7 +4,7 @@ Ce module Terraform crée et configure un groupe de ressources Azure en appliqua
 
 ## Fonctionnalités principales
 
-- Création d'un groupe de ressources Azure avec fusion des tags fournis et du tag `CreatedOn` généré automatiquement.
+- Création d'un groupe de ressources Azure avec fusion des tags fournis et du tag `CreatedOn` généré eautomatiquement.
 - Activation facultative d'un verrou (`CanNotDelete` ou `ReadOnly`) pour limiter les suppressions ou modifications accidentelles.
 - Déclaration d'attributions de rôles optionnelles au niveau du groupe de ressources.
 
@@ -39,22 +39,22 @@ module "resource_group" {
 
 ## Variables d'entrée
 
-| Nom | Type | Défaut | Description |
-| --- | --- | --- | --- |
-| `name` | `string` | n/a | **Obligatoire.** Nom du groupe de ressources (1-90 caractères, autorise lettres, chiffres, `_`, `-`, `.`, `()`, ne doit pas se terminer par un point). |
-| `location` | `string` | n/a | **Obligatoire.** Région Azure où déployer le groupe de ressources. |
-| `tags` | `map(string)` | `{}` | Tags supplémentaires à fusionner avec le tag `CreatedOn` généré automatiquement. |
-| `lock` | `object({ kind = string, name = optional(string) })` | `null` | Configuration facultative d'un verrou de gestion. `kind` doit être `"CanNotDelete"` ou `"ReadOnly"`. |
-| `role_assignments` | `list(object({ ... }))` | `[]` | Liste d'attributions de rôles facultatives. Chaque entrée doit définir `principal_id` et exactement une des propriétés `role_definition_id` ou `role_definition_name`, plus des champs optionnels (`condition`, `condition_version`, `description`, `delegated_managed_identity_resource_id`). |
+| Nom                | Type                                                 | Défaut | Description                                                                                                                                                                                                                                                                                    |
+| ------------------ | ---------------------------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`             | `string`                                             | n/a    | **Obligatoire.** Nom du groupe de ressources (1-90 caractères, autorise lettres, chiffres, `_`, `-`, `.`, `()`, ne doit pas se terminer par un point).                                                                                                                                         |
+| `location`         | `string`                                             | n/a    | **Obligatoire.** Région Azure où déployer le groupe de ressources.                                                                                                                                                                                                                             |
+| `tags`             | `map(string)`                                        | `{}`   | Tags supplémentaires à fusionner avec le tag `CreatedOn` généré automatiquement.                                                                                                                                                                                                               |
+| `lock`             | `object({ kind = string, name = optional(string) })` | `null` | Configuration facultative d'un verrou de gestion. `kind` doit être `"CanNotDelete"` ou `"ReadOnly"`.                                                                                                                                                                                           |
+| `role_assignments` | `list(object({ ... }))`                              | `[]`   | Liste d'attributions de rôles facultatives. Chaque entrée doit définir `principal_id` et exactement une des propriétés `role_definition_id` ou `role_definition_name`, plus des champs optionnels (`condition`, `condition_version`, `description`, `delegated_managed_identity_resource_id`). |
 
 ## Sorties
 
-| Nom | Description |
-| --- | --- |
-| `id` | Identifiant du groupe de ressources, utile pour chaîner d'autres modules. |
-| `name` | Nom du groupe de ressources créé. |
-| `location` | Région du groupe de ressources. |
-| `tags` | Ensemble complet des tags appliqués, incluant `CreatedOn`. |
+| Nom        | Description                                                               |
+| ---------- | ------------------------------------------------------------------------- |
+| `id`       | Identifiant du groupe de ressources, utile pour chaîner d'autres modules. |
+| `name`     | Nom du groupe de ressources créé.                                         |
+| `location` | Région du groupe de ressources.                                           |
+| `tags`     | Ensemble complet des tags appliqués, incluant `CreatedOn`.                |
 
 ## Notes complémentaires
 
